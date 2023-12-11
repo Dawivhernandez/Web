@@ -1,0 +1,1102 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "REST API PANIFICADORA",
+        "description": "<html><body>Documentacion del proyecto del <b>panificadora</b></body></html>",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "host": "localhost:4000",
+    "basePath": "",
+    "tags": [
+        {
+            "name": "Usuarios",
+            "description": "API para obtener información de los usuarios de la Panificadora"
+        },
+        {
+            "name": "Panes",
+            "description": "API para obtener información de los usuarios de la Panificadora"
+        },
+        {
+            "name": "Ventas",
+            "description": "API para obtener información de los usuarios de la Panificadora"
+        },
+        {
+            "name": "Pedidos",
+            "description": "API para obtener información de los usuarios de la Panificadora"
+        },
+        {
+            "name": "Carrito de Compras",
+            "description": "API para obtener información del carrito "
+        },
+        {
+            "name": "Detalles de venta",
+            "description": "API para obtener información de los usuarios de la Panificadora"
+        }
+    ],
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/api/usuarios/mostrarTodosUsuarios/": {
+            "get": {
+                "tags": ["Usuarios"],
+                "summary": "Listado de todos los usuarios que existen en la panificadora.",
+                "description": "<p>Servicio que devuelve la información detallada de todos los usuarios que existen en la panificadora.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los usuarios existentes en la panificadora?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "ID_Usuario": 1,
+                                    "Nombre": "David Josue",
+                                    "Correo_electronico": "02davidhdz@gmail.com",
+                                    "Contraseña": "1234",
+                                    "Direccion": "Zaragoza 6"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Usuarios"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [{
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }]
+            }
+        },
+        "/api/Usuarios/crearUsuario": {
+            "post": {
+                "summary": "Creando un usuario",
+                "operationId": "create",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "Usuario",
+                        "in": "body",
+                        "description": "Usuario agregado",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevoUsuario"
+                        }
+                    },
+                    {
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+                ],
+                "tags": ["Usuarios"],
+                "responses": {
+                    "200": {
+                        "description": "Insertado con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/usuarios/actualizarUsuario/{id}": {
+            "put": {
+                "summary": "Actualizar la informaciòn del usuario de la panificadora",
+                "description": "<p>Servicio que permite editar la informaciòn del usuario de la panificadora, dado el id el mismo </p><p>&nbsp;</p>",
+                "operationId": "update",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador del usuario",
+                        "type": "number",
+                        "default": "1"
+                    },
+                    {
+                        "name": "Usuario",
+                        "in": "body",
+                        "description": "Nombre del usuario",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevoUsuario"
+                        }
+                    },
+                    {
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+                ],
+                "tags": ["Usuarios"],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/usuarios/eliminarUsuario/{id}": {
+            "delete": {
+                "tags": ["Usuarios"],
+                "summary": "Eliminar el usuario de la panificadora dado su identificador",
+                "description": "<p>Servicio que elimina el pan dado el identificador enviado</p><p>&nbsp;</p><p><em><strong>¿Fué una ejecución exitoso?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador del usuario",
+                        "type": "number",
+                        "default": "1"
+                    },
+                    {
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+                ]
+            }
+        },
+        "/api/panes/mostrarTodosPanes/": {
+            "get": {
+                "tags": ["Panes"],
+                "summary": "Listado de todos los Panes que existen en la panificadora.",
+                "description": "<p>Servicio que devuelve la información detallada de todos los panes que existen en la panificadora.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los panes existentes en la panificadora?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "ID_Pan": 1,
+                                    "Nombre": "Amarillo",
+                                    "Descripcion": "Pan simple, con ajonjoli",
+                                    "Precio": "4"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Panes"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/panes/crearPan": {
+            "post": {
+                "summary": "Creando un apartado de pan",
+                "operationId": "create",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "Panes",
+                        "in": "body",
+                        "description": "<p>Servicio que devuelve la información detallada de todos los panes que existen en la panificadora.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los panes existentes en la panificadora?</strong></em></p>",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevoPan"
+                        }
+                    }
+                ],
+                "tags": ["Panes"],
+                "responses": {
+                    "200": {
+                        "description": "Insertado con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/panes/actualizarPan/{id}": {
+            "put": {
+                "summary": "Actualizar la informaciòn de los panes en la panificadora",
+                "description": "<p>Servicio que permite editar la informaciòn de un pan en la panificadora, dado el id el mismo </p><p>&nbsp;</p>",
+                "operationId": "update",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador del pan",
+                        "type": "number",
+                        "default": "1"
+                    },
+                    {
+                        "name": "Pan",
+                        "in": "body",
+                        "description": "Nombre del Pan",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevoPan"
+                        }
+                    },
+                    {
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+                ],
+                "tags": ["Panes"],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/panes/eliminarPan/{id}": {
+            "delete": {
+                "tags": ["Panes"],
+                "summary": "Eliminar el Pan de l ciitla panificadora dado su identificador",
+                "description": "<p>Servicio que elimina el pan dado el identificador enviado</p><p>&nbsp;</p><p><em><strong>¿Fué una ejecución exitoso?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador del pan",
+                        "type": "number",
+                        "default": "1"
+                    }
+                ]
+            }
+        },
+        "/api/ventas/mostrarTodasVentas/": {
+            "get": {
+                "tags": ["Ventas"],
+                "summary": "Listado de todos las ventas que existen en la panificadora.",
+                "description": "<p>Servicio que devuelve la información detallada de todos las ventas que existen en la panificadora.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son las ventas existentes en la panificadora?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "ID_Venta": 1,
+                                    "ID_Pedido": 1,
+                                    "Fecha": "10/02/23",
+                                    "Total": "400"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Ventas"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/ventas/crearVenta": {
+            "post": {
+                "summary": "Creando un apartado de venta",
+                "operationId": "create",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "venta",
+                        "in": "body",
+                        "description": "<p>Servicio que devuelve la información detallada de todos las ventas que existen en la panificadora.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son las ventas existentes en la panificadora?</strong></em></p>",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevaVenta"
+                        }
+                    },
+                    {
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+                ],
+                "tags": ["Ventas"],
+                "responses": {
+                    "200": {
+                        "description": "Insertado con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/ventas/actualizarVenta/{id}": {
+            "put": {
+                "summary": "Actualizar la informaciòn de las ventas en la panificadora",
+                "description": "<p>Servicio que permite editar la informaciòn de una venta en la panificadora, dado el id el mismo </p><p>&nbsp;</p>",
+                "operationId": "update",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador de la venta",
+                        "type": "number",
+                        "default": "1"
+                    },
+                    {
+                        "name": "Venta",
+                        "in": "body",
+                        "description": "Nombre del Pan",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevaVenta"
+                        }
+                    },
+                    {
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+                ],
+                "tags": ["Ventas"],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/ventas/eliminarVenta/{id}": {
+            "delete": {
+                "tags": ["Ventas"],
+                "summary": "Eliminar la venta de la panificadora dado su identificador",
+                "description": "<p>Servicio que elimina la venta dado el identificador enviado</p><p>&nbsp;</p><p><em><strong>¿Fué una ejecución exitoso?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador de la venta",
+                        "type": "number",
+                        "default": "1"
+                    },
+                    {
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+                ]
+            }
+        },
+        "/api/detalleP/crearDetalleP": {
+            "post": {
+                "summary": "Creando un apartado para ver los detalles de las compras que se han realizado",
+                "operationId": "create",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "Detalles de venta",
+                        "in": "body",
+                        "description": "<p>Servicio que devuelve la información detallada de la venta de un pedido que existen en la panificadora.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los detalles de los pedidos existentes en la panificadora?</strong></em></p>",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevoDetalleP"
+                        }
+                    },
+                    {
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+                ],
+                "tags": ["Detalles de venta"],
+                "responses": {
+                    "200": {
+                        "description": "Insertado con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/detalleP/actualizarDetalleP/{id}": {
+            "put": {
+                "summary": "Actualizar la informaciòn de los pedidos en la panificadora",
+                "description": "<p>Servicio que permite editar la informaciòn de un pedido en la panificadora, dado el id el mismo </p><p>&nbsp;</p>",
+                "operationId": "update",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador del pedido",
+                        "type": "number",
+                        "default": "1"
+                    },
+                    {
+                        "name": "Detalles de venta",
+                        "in": "body",
+                        "description": "Nombre del Pedido",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevoPedido"
+                        }
+                    },
+                    {
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+                ],
+                "tags": ["Detalles de venta"],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/detalleP/eliminarDetalleP/{id}": {
+            "delete": {
+                "tags": ["Detalles de venta"],
+                "summary": "Eliminar el Pedido de la panificadora dado su identificador",
+                "description": "<p>Servicio que elimina el pedido dado el identificador enviado</p><p>&nbsp;</p><p><em><strong>¿Fué una ejecución exitoso?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador del pedido",
+                        "type": "number",
+                        "default": "1"
+                    },
+                    {
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+                ]
+            }
+        },
+        "/api/detalleP/mostrarTodosDetalles/": {
+            "get": {
+                "tags": ["Detalles de venta"],
+                "summary": "Muestra el detalle de un pedido realizado en la panificadora.",
+                "description": "<p>Servicio que devuelve la información detallada de todos los pedidos que existen en la panificadora.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los pedidos existentes en la panificadora?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "ID_Pedido": 1,
+                                    "ID_Usuario": 1,
+                                    "Fecha": "04/12/22",
+                                    "Estado": "En proceso"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Pedido"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/pedidos/mostrarTodosPedidos/": {
+            "get": {
+                "tags": ["Pedidos"],
+                "summary": "Listado de todos los pedidos que existen en la panificadora.",
+                "description": "<p>Servicio que devuelve la información detallada de todos los pedidos que existen en la panificadora.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los pedidos existentes en la panificadora?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "ID_Pedido": 1,
+                                    "ID_Usuario": 1,
+                                    "Fecha": "04/12/22",
+                                    "Estado": "En proceso"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Pedido"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/pedidos/crearPedido": {
+            "post": {
+                "summary": "Creando un apartado de pedido",
+                "operationId": "create",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "Pedidos",
+                        "in": "body",
+                        "description": "<p>Servicio que devuelve la información detallada de todos los pedidos que existen en la panificadora.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los pedidos existentes en la panificadora?</strong></em></p>",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevoPedido"
+                        }
+                    },
+                    {
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+                ],
+                "tags": ["Pedidos"],
+                "responses": {
+                    "200": {
+                        "description": "Insertado con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/pedidos/actualizarPedido/{id}": {
+            "put": {
+                "summary": "Actualizar la informaciòn de los pedidos en la panificadora",
+                "description": "<p>Servicio que permite editar la informaciòn de un pedido en la panificadora, dado el id el mismo </p><p>&nbsp;</p>",
+                "operationId": "update",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador del pedido",
+                        "type": "number",
+                        "default": "1"
+                    },
+                    {
+                        "name": "Pedidos",
+                        "in": "body",
+                        "description": "Nombre del Pedido",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevoPedido"
+                        }
+                    },
+                    {
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+                ],
+                "tags": ["Pedidos"],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/pedidos/eliminarPedio/{id}": {
+            "delete": {
+                "tags": ["Pedidos"],
+                "summary": "Eliminar el Pedido de la panificadora dado su identificador",
+                "description": "<p>Servicio que elimina el pedido dado el identificador enviado</p><p>&nbsp;</p><p><em><strong>¿Fué una ejecución exitoso?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador del pedido",
+                        "type": "number",
+                        "default": "1"
+                    }, {
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+                ]
+            }
+        },
+        "/api/carrito/mostrar_carrito/": {
+            "get": {
+                "tags": ["Carrito de Compras"],
+                "summary": "Listado de todos los panes lmacenados en el carrito de compras del usuario en la panificadora.",
+                "description": "<p>Servicio que devuelve la información detallada de todos los panes almacenados en el carrito de compras de los usuarios en la Panificadora.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son todos los panes almacenados en el carrito de compras de los usuarios de la Panificadora?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "ID_Usuario": 1,
+                                    "ID_Pan": 3
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/ObjetoCarrito"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [{
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }]
+            }
+        },
+        "/api/carrito/agregarCarr": {
+            "post": {
+                "summary": "Agregando nuevo pan al carrito de compras de cierto usuario con el id de ambos",
+                "operationId": "create",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "Panes",
+                        "in": "body",
+                        "description": "Pan agregada al carrito de compras del usuario",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevoObjetoCarrito"
+                        }
+                    },
+                    {
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+                ],
+                "tags": ["Carrito de Compras"],
+                "responses": {
+                    "200": {
+                        "description": "Insertado con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/carrito/obtenerCarritoUsuario/{id}": {
+            "get": {
+                "tags": ["Carrito de Compras"],
+                "summary": "Informacion asociada a la obtencion del carrito de compras de un usuario si tiene almacenado algun pedido en la panificadora",
+                "description": "<p>Servicio que devuelve la información detallada del carrito de compras de cierto usuario soliciado</p><p>&nbsp;</p><p><em><strong>¿Que panes tiene almacenado en su Carrito de Compras el Usuario de este id?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "ID_Pan": 2,
+                                    "Descripcion": "Pan dulce con pasta dulce"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/ObjetoCarrito"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador del Usuario",
+                        "type": "number",
+                        "default": "1"
+                    },
+                    {
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+                ]
+            }
+        },
+        "/api/carrito/eliminarDelCarrito/{ID_Usuarios}/{ID_Pan}": {
+            "delete": {
+                "tags": ["Carrito de Compras"],
+                "summary": "Eliminar panes del carrito de compras de algun usuario de la panificadora dado el identificador de ambos",
+                "description": "<p>Servicio que elimina una pan del carrito de compras de cierto usuario dado el identificador enviado de ambos</p><p>&nbsp;</p><p><em><strong>¿Fué una ejecución exitosa?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "ID_Usuario",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador del Usuario del que se desea eliminar un pan del Carrito",
+                        "type": "number",
+                        "default": "1"
+                    },
+                    {
+                        "name": "ID_Pan",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador del pan que se desea eliminar del Carrito del Usuario",
+                        "type": "number",
+                        "default": "1"
+                    },
+                    {
+                        "description": "apiKey",
+                        "type": "string",
+                        "in": "header",
+                        "name": "bearer",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.ZXJpa3VlQGdtYWlsLmNvbQ.v7atXtnZ9F14ahwqCSjYKQirsvjs5aWQ4MrPz-BCBSk"
+                    }
+                ]
+            }
+        },
+        "definitions": {
+            "Usuario": {
+                "type": "object",
+                "properties": {
+                    "ID_Usuario": {
+                        "type": "number",
+                        "description": "Codigo que permite identificar al usuario"
+                    },
+                    "Nombre": {
+                        "type": "string",
+                        "description": "Nombre del usuario"
+                    },
+                    "Correo_electronico": {
+                        "type": "string",
+                        "description": "Correo del usuario"
+                    },
+                    "Contraseña": {
+                        "type": "number",
+                        "description": "Contraseña del usuario"
+                    },
+                    "Direccion": {
+                        "type": "string",
+                        "description": "Direccion del usuario"
+                    }
+                }
+            },
+            "Usuarios": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/definitions/Usuario"
+                }
+            },
+            "NuevoUsuario": {
+                "type": "object",
+                "properties": {
+                    "Nombre": {
+                        "type": "string",
+                        "description": "Nombre del usuario"
+                    },
+                    "Correo_electronico": {
+                        "type": "string",
+                        "description": "Correo del usuario"
+                    },
+                    "Contraseña": {
+                        "type": "number",
+                        "description": "Contraseña del usuario"
+                    },
+                    "Direccion": {
+                        "type": "string",
+                        "description": "Direccion del usuario"
+                    }
+                }
+            },
+            "Pan": {
+                "type": "object",
+                "properties": {
+                    "ID_Pan": {
+                        "type": "number",
+                        "description": "Codigo que permite identificar al Pan"
+                    },
+                    "Nombre": {
+                        "type": "string",
+                        "description": "Nombre del pan"
+                    },
+                    "Descripcion": {
+                        "type": "string",
+                        "description": "Descripcion del pan"
+                    },
+                    "Precio": {
+                        "type": "number",
+                        "description": "Precio del pan"
+                    }
+                }
+            },
+            "Panes": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/definitions/Pan"
+                }
+            },
+            "NuevoPan": {
+                "type": "object",
+                "properties": {
+                    "Nombre": {
+                        "type": "string",
+                        "description": "Nombre del Pan"
+                    },
+                    "Descripcion": {
+                        "type": "string",
+                        "description": "Descripcion del pan"
+                    },
+                    "Precio": {
+                        "type": "number",
+                        "description": "Precio del pan"
+                    }
+                }
+            },
+            "Venta": {
+                "type": "object",
+                "properties": {
+                    "ID_Pan": {
+                        "type": "number",
+                        "description": "Codigo que permite identificar al Pan"
+                    },
+                    "Nombre": {
+                        "type": "string",
+                        "description": "Nombre del pan"
+                    },
+                    "Descripcion": {
+                        "type": "string",
+                        "description": "Descripcion del pan"
+                    },
+                    "Precio": {
+                        "type": "number",
+                        "description": "Precio del pan"
+                    }
+                }
+            },
+            "Ventas": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/definitions/Venta"
+                }
+            },
+            "NuevoVenta": {
+                "type": "object",
+                "properties": {
+                    "ID_Pedido": {
+                        "type": "string",
+                        "description": "el pedido de la venta"
+                    },
+                    "Fecha": {
+                        "type": "string",
+                        "description": "Fecha de cuando se hizo la venta"
+                    },
+                    "Total": {
+                        "type": "number",
+                        "description": "Total de la venta"
+                    }
+                }
+            },
+            "Pedido": {
+                "type": "object",
+                "properties": {
+                    "ID_Pedido": {
+                        "type": "number",
+                        "description": "Codigo que permite identificar al Pedido"
+                    },
+                    "ID_Usuario": {
+                        "type": "string",
+                        "description": "id del usuario"
+                    },
+                    "Fecha": {
+                        "type": "string",
+                        "description": "Fecha del pedido"
+                    },
+                    "Precio": {
+                        "type": "number",
+                        "description": "El precio que tiene cada pedido"
+                    }
+                }
+            },
+            "Pedidos": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/definitions/Pan"
+                }
+            },
+            "NuevoPedido": {
+                "type": "object",
+                "properties": {
+                    "Nombre": {
+                        "type": "string",
+                        "description": "Nombre del Pan"
+                    },
+                    "Descripcion": {
+                        "type": "string",
+                        "description": "Descripcion del pan"
+                    },
+                    "Precio": {
+                        "type": "number",
+                        "description": "Precio del pan"
+                    },
+                    "ObjetoCarrito": {
+                        "type": "object",
+                        "properties": {
+                            "ID_Usuario": {
+                                "type": "number",
+                                "description": "Codigo que permite identificar al usuario con el que se almacena el pedido"
+                            },
+                            "ID_Pan": {
+                                "type": "number",
+                                "description": "Codigo que identifica al ID del pan que se almacena con el usuario en el Carrito"
+                            }
+                        }
+                    },
+                    "ObjetosCarrito": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/ObjetoCarrito"
+                        }
+                    },
+                    "NuevoObjetoCarrito": {
+                        "type": "object",
+                        "properties": {
+                            "ID_Usuario": {
+                                "type": "number",
+                                "description": "Codigo que permite identificar al usuario con el que se almacena el pan"
+                            },
+                            "ID_Pan": {
+                                "type": "number",
+                                "description": "Codigo que identifica al ID del pan que se almacena con el usuario en el Carrito"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
